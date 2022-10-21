@@ -17,7 +17,13 @@ export class Book extends BaseEntity {
   @Column()
   name: string;
 
-  @Column({ default: -1 })
+  @Column({
+    default: -1,
+    type: "decimal",
+    precision: 7,
+    scale: 2,
+    nullable: true,
+  })
   averageScore: number;
 
   @OneToMany(() => BookToUser, (bookToUser) => bookToUser.book)

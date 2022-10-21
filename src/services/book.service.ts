@@ -39,6 +39,33 @@ class BookService {
       throw error;
     }
   };
+
+  updateAverage = async (scoreToAdd: number, bookId: number) => {
+    try {
+      const evaluations = await Repository.bookToUserRepository.find({
+        where: {
+          book: {
+            id: bookId,
+          },
+        },
+      });
+      var total = 0;
+      total += scoreToAdd;
+      evaluations.forEach((evaluation) => {
+        total += evaluation.userScore;
+      });
+      var average = Number(
+        Math.round(parseFloat(total / evaluations.length + "e" + 2)) + "e-" + 2
+      );
+      const bookToUpdate = await Repository.bookRepository.findOneByOrFail({
+        id: bookId,
+      });
+      bookToUpdate.averageScore = average;
+      await bookToUpdate.save();
+    } catch (error) {
+      throw error;
+    }
+  };
 }
 
 export default BookService;
