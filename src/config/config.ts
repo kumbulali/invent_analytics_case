@@ -11,7 +11,7 @@ const SERVER = {
 };
 
 const DATABASE = {
-  host: "localhost",
+  host: "db",
   port: 5432,
   username: "postgres",
   password: "postgres",
